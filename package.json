@@ -91,6 +91,7 @@
     ]
   },
   "dependencies": {
+    "underscore": "^1.13.8"
     "@ai-sdk/openai-compatible": "^2.0.35",
     "@fontsource/roboto": "^5.2.9",
     "ai": "^6.0.116",
@@ -176,9 +177,9 @@
     "@types/graceful-fs": "^4.1.9",
     "@types/i18n": "^0.12.0",
     "@types/js-yaml": "^3.12.10",
-    "@types/jsonwebtoken": "^8.5.9",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/jws": "^3.2.10",
-    "@types/lodash": "^4.17.14",
+    "@types/lodash": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
     "@types/node": "^26.0.1",
