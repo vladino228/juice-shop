@@ -54,7 +54,7 @@ export function getUserProfile () {
     const themeKey = config.get<string>('application.theme') as keyof typeof themes
     const theme = themes[themeKey] || themes['bluegrey-lightgreen']
 
-    if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
+ if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
       if (username?.match(/#{(.*)}/) !== null) {
         req.app.locals.abused_ssti_bug = true
         const code = username?.substring(2, username.length - 1)
@@ -62,7 +62,8 @@ export function getUserProfile () {
           if (!code) {
             throw new Error('Username is null')
           }
-          username = eval(code) // eslint-disable-line no-eval
+          // ВИПРАВЛЕННЯ: замінено небезпечний eval() на безпечне перетворення
+          username = String(code)
         } catch (err) {
           username = '\\' + username
         }
