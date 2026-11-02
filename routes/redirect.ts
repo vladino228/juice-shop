@@ -1,3 +1,4 @@
+GNU nano 6.2                                                                                 routes/redirect.ts                                                                                           
 /*
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
@@ -13,9 +14,18 @@ export function performRedirect () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
     const toUrl: string = query.to as string
     if (security.isRedirectAllowed(toUrl)) {
-      challengeUtils.solveIf(challenges.redirectCryptoCurrencyChallenge, () => { return toUrl === 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' || toUrl === 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' || toUrl === 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6' })
+      challengeUtils.solveIf(challenges.redirectCryptoCurrencyChallenge, () => { return toUrl === 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'  toUrl === 'https://blockchain.i>
       challengeUtils.solveIf(challenges.redirectChallenge, () => { return isUnintendedRedirect(toUrl) })
-      res.redirect(toUrl)
+      if (toUrl.startsWith('/')) {
+        const safeUrl = String(toUrl);
+      if (safeUrl.startsWith('https://github.com/')  safeUrl.startsWith('/')) {
+        res.redirect(safeUrl);
+      } else {
+        res.redirect('/');
+      }
+      } else {
+        res.redirect('/')
+      }
     } else {
       res.status(406)
       next(new Error('Unrecognized target URL for redirect: ' + toUrl))
