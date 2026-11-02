@@ -22,7 +22,12 @@ export function servePublicFiles () {
     }
   }
 
-  function verify (file: string, res: Response, next: NextFunction) {
+ function verify (file: string, res: Response, next: NextFunction) {
+    if (file && (file.includes('..') || file.includes('/') || file.includes('\\'))) {
+      res.status(403)
+      return next(new Error('Forbidden: Invalid file path!'))
+    }
+
     if (file && (endsWithAllowlistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = security.cutOffPoisonNullByte(file)
 
