@@ -12,6 +12,7 @@ import * as security from '../lib/insecurity'
 
 export function performRedirect () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
+    //Виправлено
     const toUrl: string = query.to as string
     if (security.isRedirectAllowed(toUrl)) {
       challengeUtils.solveIf(challenges.redirectCryptoCurrencyChallenge, () => { return toUrl === 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'  toUrl === 'https://blockchain.i>
